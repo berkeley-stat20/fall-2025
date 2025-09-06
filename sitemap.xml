@@ -2,130 +2,138 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/license.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/glossary-fns.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/glossary-defs.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/assets/final-exam-slide.html</loc>
-    <lastmod>2025-09-05T01:02:35.498Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.805Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/notes.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/labs/unvotes/part-2.html</loc>
-    <lastmod>2025-09-05T01:02:34.696Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.009Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/01-understanding-the-world/slides.html</loc>
-    <lastmod>2025-09-05T01:02:34.613Z</lastmod>
+    <lastmod>2025-09-06T20:51:07.925Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/02-taxonomy-of-data/notes.html</loc>
-    <lastmod>2025-09-05T01:02:34.666Z</lastmod>
+    <lastmod>2025-09-06T20:51:07.979Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/notes.html</loc>
-    <lastmod>2025-09-05T01:02:34.696Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.009Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/CONTRIBUTING.html</loc>
-    <lastmod>2025-09-05T01:02:35.216Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.525Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/4-causation/04-time/slides.html</loc>
-    <lastmod>2025-09-05T01:02:35.043Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.354Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/assignments.html</loc>
-    <lastmod>2025-09-05T01:02:35.502Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.809Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/docs/index.html</loc>
-    <lastmod>2025-09-05T01:02:35.506Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.813Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/docs/slides.html</loc>
-    <lastmod>2025-09-05T01:02:35.506Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/labs/class-survey/slides.html</loc>
-    <lastmod>2025-09-05T01:02:34.861Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.183Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/01-summarizing-categorical-data/slides.html</loc>
-    <lastmod>2025-09-05T01:02:34.749Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.061Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/01-summarizing-categorical-data/tutorial.html</loc>
-    <lastmod>2025-09-05T01:02:34.749Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/02-summarizing-numerical-data/notes.html</loc>
+    <lastmod>2025-09-06T20:51:08.076Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/3-generalization/labs/elections/learning-objectives.html</loc>
-    <lastmod>2025-09-05T01:02:34.984Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.300Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/02-summarizing-numerical-data/tutorial.html</loc>
+    <lastmod>2025-09-06T20:51:08.076Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/notes.html</loc>
-    <lastmod>2025-09-05T01:02:34.869Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.191Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/2-summarizing-data/01-summarizing-categorical-data/notes.html</loc>
-    <lastmod>2025-09-05T01:02:34.749Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.061Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/docs/assignments.html</loc>
-    <lastmod>2025-09-05T01:02:35.502Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.809Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/docs/scheduled-docs.html</loc>
-    <lastmod>2025-09-05T01:02:35.506Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.813Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/docs/website.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/office-hours.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/4-causation/04-time/notes.html</loc>
-    <lastmod>2025-09-05T01:02:35.043Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.354Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/syllabus.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/02-taxonomy-of-data/tutorial.html</loc>
-    <lastmod>2025-09-05T01:02:34.666Z</lastmod>
+    <lastmod>2025-09-06T20:51:07.979Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/02-taxonomy-of-data/slides.html</loc>
-    <lastmod>2025-09-05T01:02:34.666Z</lastmod>
+    <lastmod>2025-09-06T20:51:07.979Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/1-questions-and-data/01-understanding-the-world/notes.html</loc>
-    <lastmod>2025-09-05T01:02:34.613Z</lastmod>
+    <lastmod>2025-09-06T20:51:07.925Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/assets/quiz-slides.html</loc>
-    <lastmod>2025-09-05T01:02:35.499Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.806Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/index.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
   <url>
     <loc>https://stat20.berkeley.edu/fall-2025/tutorials.html</loc>
-    <lastmod>2025-09-05T01:02:35.507Z</lastmod>
+    <lastmod>2025-09-06T20:51:08.814Z</lastmod>
   </url>
 </urlset>
