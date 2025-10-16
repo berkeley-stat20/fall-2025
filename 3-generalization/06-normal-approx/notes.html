@@ -77,6 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f183013bf538b41205adeeb9f936a13b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/stat20notes-1.0.0/stat20notes.js"></script>
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -433,13 +435,6 @@ window.Quarto = {
   <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution">The Normal distribution</a></li>
   </ul></li>
   <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem">The Central Limit Theorem</a></li>
-  <li><a href="#ideas-in-code" id="toc-ideas-in-code" class="nav-link" data-scroll-target="#ideas-in-code">Ideas in code</a>
-  <ul class="collapse">
-  <li><a href="#useful-functions" id="toc-useful-functions" class="nav-link" data-scroll-target="#useful-functions">Useful functions</a></li>
-  <li><a href="#uniforma-b" id="toc-uniforma-b" class="nav-link" data-scroll-target="#uniforma-b">Uniform<span class="math inline">\((a, b)\)</span></a></li>
-  <li><a href="#normalmu-sigma2" id="toc-normalmu-sigma2" class="nav-link" data-scroll-target="#normalmu-sigma2">Normal<span class="math inline">\((\mu, \sigma^2)\)</span></a></li>
-  <li><a href="#the-argument-prob-in-the-function-sample" id="toc-the-argument-prob-in-the-function-sample" class="nav-link" data-scroll-target="#the-argument-prob-in-the-function-sample">The argument <code>prob</code> in the function <code>sample()</code></a></li>
-  </ul></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides-fill"></i>Slides</a></li></ul></div></nav>
     </div>
@@ -833,154 +828,9 @@ F(0.3) = P(X \le 0.3) = \int_{-\infty}^{0.3} f(t) dt =  \int_0^{0.3} 1 dt = 0.3
 <p>The normal curve is enormously useful because many data distributions are similar to the normal curve, so we can use the areas under the normal curve to approximate the areas of the data distributions to figure out proportions. The reason so many data distributions approximately follow a normal distribution is because of one of the most fundamental results in statistics called the Central Limit Theorem. This astounding result says that <strong>sums (and averages) of independent and identically distributed random variables will follow an approximately normal distribution (after transforming them to standard units) as the sample size grows large</strong>. If we restate this in terms of our box model, this theorem says that, for large enough <span class="math inline">\(n\)</span>, if we draw <span class="math inline">\(n\)</span> times from a box of tickets with replacement, then the probability distribution of the sum and the average of the draws (standardized) will be approximately normal, <em>regardless</em> of the distribution of the tickets in the box. This means that the tickets in the box can be anything, but as long as we draw enough times, the sum will have an approximately bell-shaped distribution.</p>
 <p>Since many useful statistics can be written as the sum or mean of iid random variables, this is a very important and useful theorem, and we will use it extensively for inference in the next unit.</p>
 <p>Recall our hammered homeseeker from the beginning of this chapter, and the bell-shaped distribution of their position after half an hour. Since their position can be written as a sum of all their steps (which were <span class="math inline">\(+1\)</span> or <span class="math inline">\(-1\)</span>), the Central Limit Theorem applies to the probability distribution of the sum, and that is why the distribution is bell-shaped. Using the normal approximation and the empirical rule, we can say that with probability about <span class="math inline">\(32\%\)</span>, our tipsy friend will be <em>farther</em> than one standard deviation from the starting point, which was the bar. Recall that one standard deviation for <span class="math inline">\(n=30\)</span> is <span class="math inline">\(\sqrt{n} \approx 5.5\)</span> steps. So he may be close to his home (with about <span class="math inline">\(16\%\)</span> probability) or totally in the other direction (also with about <span class="math inline">\(16\%\)</span> probability).</p>
-</section>
-<section id="ideas-in-code" class="level2">
-<h2 class="anchored" data-anchor-id="ideas-in-code">Ideas in code</h2>
-<section id="useful-functions" class="level3">
-<h3 class="anchored" data-anchor-id="useful-functions">Useful functions</h3>
-</section>
-<section id="uniforma-b" class="level3">
-<h3 class="anchored" data-anchor-id="uniforma-b">Uniform<span class="math inline">\((a, b)\)</span></h3>
-<ol type="1">
-<li><code>dunif</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X\)</span> where <span class="math inline">\(f(x) = \displaystyle \frac{1}{b-a}\)</span>, for <span class="math inline">\(a &lt; x &lt; b\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-<ol start="2" type="1">
-<li><code>punif</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-<ol start="3" type="1">
-<li><code>runif</code> generates random numbers from the <span class="math inline">\(Unif(a,b)\)</span> distribution.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>n</code>: the size of the sample we want</li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="normalmu-sigma2" class="level3">
-<h3 class="anchored" data-anchor-id="normalmu-sigma2">Normal<span class="math inline">\((\mu, \sigma^2)\)</span></h3>
-<ol type="1">
-<li><code>dnorm</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span></li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<ol start="2" type="1">
-<li><code>pnorm</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<ol start="3" type="1">
-<li><code>rnorm</code> generates random numbers from the Normal<span class="math inline">\((\mu, \sigma^2)\)</span> distribution.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>n</code>: the size of the sample we want</li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<section id="example" class="level4">
-<h4 class="anchored" data-anchor-id="example">Example</h4>
-<p>Let’s verify the empirical rule for the standard normal random variable:</p>
-<p>Note that (for example) <span class="math inline">\(P(-1 \le X \le 1) = F(1) - F(-1)\)</span>:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6826895</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9544997</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9973002</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="the-argument-prob-in-the-function-sample" class="level3">
-<h3 class="anchored" data-anchor-id="the-argument-prob-in-the-function-sample">The argument <code>prob</code> in the function <code>sample()</code></h3>
-<p>We have seen the function <code>sample()</code>, but so far, have only used it when we were sampling uniformly at random. That is, all the values are equally likely. We can sample according to a weighted probability, though, by putting in a vector of probabilities. Let’s look at the example of net gain while betting on red on a roulette spin. Recall that if we bet a dollar on red, then our net gain is <span class="math inline">\(+1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{18}{38}\)</span> and <span class="math inline">\(-1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{20}{38}\)</span>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>) <span class="co"># define the gain for a single spin</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>prob_gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span><span class="sc">/</span><span class="dv">38</span>,<span class="dv">20</span><span class="sc">/</span><span class="dv">38</span>) <span class="co">#define the corresponding probabilities</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>exp_gain <span class="ot">&lt;-</span> <span class="fu">sum</span>(gain<span class="sc">*</span>prob_gain)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>exp_gain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.05263158</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate gain from 10 spins of the wheel</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] -1  1 -1  1  1 -1  1  1  1 -1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate net gain from 10 spins of the wheel which would sum these</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<p>Here is a simulation showing the Central Limit Theorem at work, with the empirical distribution becoming gradually more bell-shaped. Net gain is the sum of <span class="math inline">\(n\)</span> draws with replacement from the vector <code>gain</code> defined above using the <code>prob_gain</code> vector.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<!-- We defined the expectation and variance of sums and averages of an iid sample of random variables, and introduced the term *standard error*. We recognized how the mean and variance scale with $n$ and defined the square root law for the standard error of the sum or mean of an iid sample. 
-
-We considered the probability distributions of sums and averages. 
-
-Finally, we introduced continuous distributions. In subsequent notes, we will introduce the most celebrated continuous distribution, the normal distribution. 
--->
+<p><a href="../../3-generalization/06-normal-approx/tutorial.html" style="fontsize: 1.5em">Continue on to the tutorial portion of the notes <i class="fa-solid fa-arrow-right-long fa-xl" aria-label="arrow-right-long"></i></a></p>
 
 
-</section>
 </section>
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Tutorials – Stat 20</title>
+<title>Continuous Distributions and Normal Approximations – Stat 20</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./1-questions-and-data/02-taxonomy-of-data/tutorial.html" rel="next">
-<link href="./assets/stat20-hex.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-018089954d508eae8a473f0b7f0491f0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-11214aac9444a6eefa539ed6164a01e4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../3-generalization/04-random-variables/tutorial.html" rel="prev">
+<link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-018089954d508eae8a473f0b7f0491f0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f183013bf538b41205adeeb9f936a13b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,19 +112,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 </script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="R Tutorials – Stat 20">
-<meta property="og:description" content="Introduction to Probability and Statistics at UC Berkeley">
-<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/assets/stat20-hex.png">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Continuous Distributions and Normal Approximations – Stat 20">
+<meta property="og:description" content="Connections to boxes, continuous distributions, and a fundamental result">
+<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/06-normal-approx/assets/stat20-hex.png">
 <meta property="og:site_name" content="Stat 20">
-<meta property="og:image:height" content="1000">
-<meta property="og:image:width" content="866">
-<meta name="twitter:title" content="R Tutorials – Stat 20">
-<meta name="twitter:description" content="Introduction to Probability and Statistics at UC Berkeley">
-<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/assets/stat20-hex.png">
-<meta name="twitter:image-height" content="1000">
-<meta name="twitter:image-width" content="866">
+<meta name="twitter:title" content="Continuous Distributions and Normal Approximations – Stat 20">
+<meta name="twitter:description" content="Connections to boxes, continuous distributions, and a fundamental result">
+<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/06-normal-approx/assets/stat20-hex.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -99,8 +162,8 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-sm " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./assets/stat20-hex-small.png" alt="Stat 20 logo" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/stat20-hex-small.png" alt="Stat 20 logo" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -110,23 +173,23 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./syllabus.html"> 
+    <a class="nav-link" href="../../syllabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./office-hours.html"> 
+    <a class="nav-link" href="../../office-hours.html"> 
 <span class="menu-text">Office Hours</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./notes.html"> 
+    <a class="nav-link" href="../../notes.html"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./assignments.html"> 
+    <a class="nav-link" href="../../assignments.html"> 
 <span class="menu-text">Assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./tutorials.html" aria-current="page"> 
+    <a class="nav-link active" href="../../tutorials.html" aria-current="page"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
 </ul>
@@ -148,7 +211,7 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tutorials.html">R Tutorials</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/06-normal-approx/tutorial.html">Continuous Distributions and Normal Approximations</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -162,7 +225,7 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tutorials.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -171,55 +234,55 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-questions-and-data/02-taxonomy-of-data/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../1-questions-and-data/02-taxonomy-of-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Taxonomy of Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-summarizing-data/01-summarizing-categorical-data/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/01-summarizing-categorical-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Categorical Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-summarizing-data/02-summarizing-numerical-data/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/02-summarizing-numerical-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Numerical Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-summarizing-data/03-a-grammar-of-graphics/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/03-a-grammar-of-graphics/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Grammar of Graphics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-summarizing-data/04-conditioning/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/04-conditioning/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conditioning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-summarizing-data/05-summarizing-associations/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/05-summarizing-associations/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Numerical Associations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-generalization/01-prob-foundations/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/01-prob-foundations/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Probability Foundations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-generalization/04-random-variables/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/04-random-variables/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Random Variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-generalization/06-normal-approx/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/06-normal-approx/tutorial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Continuous Distributions and Normal Approximations</span></a>
   </div>
 </li>
@@ -234,9 +297,10 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/06-normal-approx/tutorial.html">Continuous Distributions and Normal Approximations</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">R Tutorials</h1>
+<h1 class="title">Continuous Distributions and Normal Approximations</h1>
+<p class="subtitle lead">Connections to boxes, continuous distributions, and a fundamental result</p>
 </div>
 
 
@@ -253,11 +317,181 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 </header>
 
 
-<p>Tutorials serve to introduce you to the fundamentals of the R language.</p>
+<section id="ideas-in-code" class="level2">
+<h2 class="anchored" data-anchor-id="ideas-in-code">Ideas in code</h2>
+<section id="useful-functions" class="level3">
+<h3 class="anchored" data-anchor-id="useful-functions">Useful functions</h3>
+</section>
+<section id="uniforma-b" class="level3">
+<h3 class="anchored" data-anchor-id="uniforma-b">Uniform<span class="math inline">\((a, b)\)</span></h3>
+<ol type="1">
+<li><code>dunif</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X\)</span> where <span class="math inline">\(f(x) = \displaystyle \frac{1}{b-a}\)</span>, for <span class="math inline">\(a &lt; x &lt; b\)</span>.</li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
+<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
+<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li><code>punif</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
+<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
+<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li><code>runif</code> generates random numbers from the <span class="math inline">\(Unif(a,b)\)</span> distribution.</li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>n</code>: the size of the sample we want</li>
+<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
+<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="normalmu-sigma2" class="level3">
+<h3 class="anchored" data-anchor-id="normalmu-sigma2">Normal<span class="math inline">\((\mu, \sigma^2)\)</span></h3>
+<ol type="1">
+<li><code>dnorm</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span></li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
+<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
+<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li><code>pnorm</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
+<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
+<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li><code>rnorm</code> generates random numbers from the Normal<span class="math inline">\((\mu, \sigma^2)\)</span> distribution.</li>
+</ol>
+<ul>
+<li>Arguments:
+<ul>
+<li><code>n</code>: the size of the sample we want</li>
+<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
+<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
+</ul></li>
+</ul>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example</h4>
+<p>Let’s verify the empirical rule for the standard normal random variable:</p>
+<p>Note that (for example) <span class="math inline">\(P(-1 \le X \le 1) = F(1) - F(-1)\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6826895</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9544997</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9973002</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="the-argument-prob-in-the-function-sample" class="level3">
+<h3 class="anchored" data-anchor-id="the-argument-prob-in-the-function-sample">The argument <code>prob</code> in the function <code>sample()</code></h3>
+<p>We have seen the function <code>sample()</code>, but so far, have only used it when we were sampling uniformly at random. That is, all the values are equally likely. We can sample according to a weighted probability, though, by putting in a vector of probabilities. Let’s look at the example of net gain while betting on red on a roulette spin. Recall that if we bet a dollar on red, then our net gain is <span class="math inline">\(+1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{18}{38}\)</span> and <span class="math inline">\(-1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{20}{38}\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>) <span class="co"># define the gain for a single spin</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>prob_gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span><span class="sc">/</span><span class="dv">38</span>,<span class="dv">20</span><span class="sc">/</span><span class="dv">38</span>) <span class="co">#define the corresponding probabilities</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>exp_gain <span class="ot">&lt;-</span> <span class="fu">sum</span>(gain<span class="sc">*</span>prob_gain)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>exp_gain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.05263158</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate gain from 10 spins of the wheel</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] -1  1 -1  1  1 -1  1  1  1 -1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate net gain from 10 spins of the wheel which would sum these</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>Here is a simulation showing the Central Limit Theorem at work, with the empirical distribution becoming gradually more bell-shaped. Net gain is the sum of <span class="math inline">\(n\)</span> draws with replacement from the vector <code>gain</code> defined above using the <code>prob_gain</code> vector.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- We defined the expectation and variance of sums and averages of an iid sample of random variables, and introduced the term *standard error*. We recognized how the mean and variance scale with $n$ and defined the square root law for the standard error of the sum or mean of an iid sample. 
+
+We considered the probability distributions of sums and averages. 
+
+Finally, we introduced continuous distributions. In subsequent notes, we will introduce the most celebrated continuous distribution, the normal distribution. 
+-->
 
 
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../3-generalization/06-normal-approx";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -680,11 +914,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../3-generalization/04-random-variables/tutorial.html" class="pagination-link" aria-label="Random Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Random Variables</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1-questions-and-data/02-taxonomy-of-data/tutorial.html" class="pagination-link" aria-label="The Taxonomy of Data">
-        <span class="nav-page-text">The Taxonomy of Data</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -699,7 +933,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="./license.html">
+    <a class="nav-link" href="../../license.html">
 <p>License</p>
 </a>
   </li>  
