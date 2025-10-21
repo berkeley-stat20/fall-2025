@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>A Grammar of Graphics – Stat 20</title>
+<title>Bootstrapping – Stat 20</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../2-summarizing-data/04-conditioning/notes.html" rel="next">
-<link href="../../2-summarizing-data/02-summarizing-numerical-data/notes.html" rel="prev">
+<link href="../../3-generalization/06-normal-approx/tutorial.html" rel="prev">
 <link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -42,9 +75,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f183013bf538b41205adeeb9f936a13b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/stat20notes-1.0.0/stat20notes.js"></script>
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,20 +112,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 </script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../site_libs/quarto-contrib/quarto-project/stat20/stat20notes/sidebar.css">
-<meta property="og:title" content="A Grammar of Graphics – Stat 20">
-<meta property="og:description" content="A unified framework for constructing statistical graphics.">
-<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/2-summarizing-data/03-a-grammar-of-graphics/images/penguin-plot.png">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Bootstrapping – Stat 20">
+<meta property="og:description" content="Another Approach to Confidence Intervals">
+<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/09-bootstrapping/assets/stat20-hex.png">
 <meta property="og:site_name" content="Stat 20">
-<meta property="og:image:height" content="826">
-<meta property="og:image:width" content="1144">
-<meta name="twitter:title" content="A Grammar of Graphics – Stat 20">
-<meta name="twitter:description" content="A unified framework for constructing statistical graphics.">
-<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/2-summarizing-data/03-a-grammar-of-graphics/images/penguin-plot.png">
-<meta name="twitter:image-height" content="826">
-<meta name="twitter:image-width" content="1144">
+<meta name="twitter:title" content="Bootstrapping – Stat 20">
+<meta name="twitter:description" content="Another Approach to Confidence Intervals">
+<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/09-bootstrapping/assets/stat20-hex.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -123,7 +181,7 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 <span class="menu-text">Office Hours</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../notes.html" aria-current="page"> 
+    <a class="nav-link" href="../../notes.html"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
@@ -131,7 +189,7 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 <span class="menu-text">Assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutorials.html"> 
+    <a class="nav-link active" href="../../tutorials.html" aria-current="page"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
 </ul>
@@ -153,7 +211,7 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <h1 class="quarto-secondary-nav-title no-breadcrumbs">A Grammar of Graphics</h1>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/09-bootstrapping/tutorial.html">Bootstrapping</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -167,183 +225,73 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Notes</span></a>
+            <a href="../../tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Questions and Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../1-questions-and-data/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Questions and Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../1-questions-and-data/01-understanding-the-world/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Understanding the World with Data</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Summarization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../1-questions-and-data/02-taxonomy-of-data/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../1-questions-and-data/02-taxonomy-of-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Taxonomy of Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summarization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/01-summarizing-categorical-data/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/01-summarizing-categorical-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Categorical Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/02-summarizing-numerical-data/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/02-summarizing-numerical-data/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Numerical Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/03-a-grammar-of-graphics/notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../2-summarizing-data/03-a-grammar-of-graphics/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Grammar of Graphics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/04-conditioning/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/04-conditioning/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conditioning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/05-summarizing-associations/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../2-summarizing-data/05-summarizing-associations/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summarizing Numerical Associations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../2-summarizing-data/06-multiple-linear-regression/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Linear Regression</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generalization</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Generalization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/01-prob-foundations/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/01-prob-foundations/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Probability Foundations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/02-computing-probs/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computing Probabilities</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/03-probability-dsns/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability Distributions</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/04-random-variables/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/04-random-variables/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Random Variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Generalization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/05-ev-se/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Expected Value and Variance</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/06-normal-approx/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/06-normal-approx/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Distributions and Normal Approximations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/07-from-samps-to-pops/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">From Samples to Populations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/08-confidence-intervals/notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Confidence Intervals</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/09-bootstrapping/notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../3-generalization/09-bootstrapping/tutorial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Bootstrapping</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Prediction</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
-      </ul>
-  </li>
       </ul>
   </li>
     </ul>
@@ -351,29 +299,16 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#the-grammar-of-graphics" id="toc-the-grammar-of-graphics" class="nav-link active" data-scroll-target="#the-grammar-of-graphics">The Grammar of Graphics</a>
-  <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#aesthetics" id="toc-aesthetics" class="nav-link" data-scroll-target="#aesthetics">Aesthetics</a></li>
-  <li><a href="#geometries" id="toc-geometries" class="nav-link" data-scroll-target="#geometries">Geometries</a></li>
-  <li><a href="#example-births-over-time" id="toc-example-births-over-time" class="nav-link" data-scroll-target="#example-births-over-time">Example: Births over Time</a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides-fill"></i>Slides</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/09-bootstrapping/tutorial.html">Bootstrapping</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">A Grammar of Graphics</h1>
-<p class="subtitle lead">A unified framework for constructing statistical graphics.</p>
+<h1 class="title">Bootstrapping</h1>
+<p class="subtitle lead">Another Approach to Confidence Intervals</p>
 </div>
 
 
@@ -390,207 +325,191 @@ gtag('config', 'G-WP7F4QKDC8', { 'anonymize_ip': true});
 </header>
 
 
-<p><span class="dropcap">I</span>n the last set of notes, we saw that there is a side to the discipline of Statistics that looks like engineering. Summary statistics - medians, standard deviations, etc. - are carefully crafted tools that capture different characteristics of a data set for use in very specific situations. There is another practice in statistics that looks more like a science; that is, a field that seeks to take many different phenomena and explain them using a systematic overarching theory. That practice is data visualization.</p>
-<p>At this point in the course, you’ve seen several several examples of data visualizations.</p>
+<section id="ideas-in-code" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="ideas-in-code">Ideas in code</h2>
+<p>These notes utilize several functions from the <code>infer</code> library, which can be used to calculate confidence intervals and conduct hypothesis tests. It can be loaded with <code>library(infer)</code>.</p>
+<p>With <code>infer</code>, each step in the bootstrap procedure is controlled by one of four functions.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/plot-collage.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="images/infer-pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="440"></p>
 </figure>
 </div>
-<p>The diversity of shapes and structures used in these plots suggest that each one is a thing-unto-itself, specially devised to provide one particular style of visualization. But what elements do they share?</p>
-<p>Focus on the nature of the data being used. Exactly half of the plots above are illustrating the distribution of a single variable; the other half illustrate the relation between two variables. Can you tell which is which?</p>
-<p>Consider the manner in which variability in the data is being conveyed used different visual cues. How many of the plots above utilize an x-axis? A y-axis? Color?</p>
-<p>Finally, how are the observations finding their way onto the plot? Three of the plots above share the same data variable, utilize the same visual cues, and differ only in the shape used to encode the observations.</p>
-<p>By asking these questions, we begin to find recurring structures in a wide range of plot types. These recurring structures have been compiled into a widely-used framework called the Grammar of Graphics.</p>
-<section id="the-grammar-of-graphics" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="the-grammar-of-graphics">The Grammar of Graphics</h2>
-<p>In 1999, a statistician named Leland Wilkinson published the first edition of what has been the most influential work in data visualization, <em>The Grammar of Graphics</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The title is fitting. In the same way that a grammar defines the regular structures and composition of a language, his book outlines a framework to structure statistical graphics.</p>
-<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><img src="images/grammar-of-graphics.png" class="img-fluid"></div></div>
-<p>Nearly every current software tool used to build plots has been informed by this book<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Its influence can be found in Tableau, Plotly, and the Python libraries bokeh, altair, seaborn, and plotnine. The most complete implementation of the grammar is found in an R package called ggplot2 by Hadley Wickham<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
-<p>In Wickham’s adaptation of the grammar of graphics, a plot can be decomposed into three primary elements:</p>
-<ol type="1">
-<li>the <strong>data</strong>,</li>
-<li>the <strong>aesthetic mapping</strong> of the variables in the data to visual cues, and</li>
-<li>the <strong>geometry</strong> used to encode the observations on the plot.</li>
-</ol>
-<p>Let’s go through each of these components one-by-one to understand the role that they play in a plot like this, which we’ll refer to as the “penguin plot”.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="499"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The above plot is an example new type of plot which involves <em>two</em> numerical variables: a scatter plot. The points may also be colored by a third variable, generally a categorical one.</p>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>What variables are needed to construct the penguin plot above?</p>
-<p>We see <code>bill_length_mm</code> and <code>bill_depth_mm</code>; those are labeled clearly on the x and y axes. We must also know the <code>species</code> of each of these penguins in order to know which color to label each point. In other words, there are three columns of a data frame that we need to have on hand.</p>
+<p>For a comprehensive list of templates that you can use to form intervals, see the online documentation: <a href="https://infer.netlify.app/articles/observed_stat_examples.html" class="uri">https://infer.netlify.app/articles/observed_stat_examples.html</a>.</p>
+<section id="specify" class="level4">
+<h4 class="anchored" data-anchor-id="specify"><a href="https://infer.netlify.app/reference/specify.html"><code>specify()</code></a></h4>
+<p>The specify function allows you to specify which column of a data frame you are using as your response variable (your variable of interest). When looking at the relationship between two variables you will specify both the response and the explanatory variables. As such, the main arguments are <code>response</code> and <code>explanatory</code>.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 333 × 3
-   bill_length_mm bill_depth_mm species
-            &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;  
- 1           39.1          18.7 Adelie 
- 2           39.5          17.4 Adelie 
- 3           40.3          18   Adelie 
- 4           36.7          19.3 Adelie 
- 5           39.3          20.6 Adelie 
- 6           38.9          17.8 Adelie 
- 7           39.2          19.6 Adelie 
- 8           41.1          17.6 Adelie 
- 9           38.6          21.2 Adelie 
-10           34.6          21.1 Adelie 
-# ℹ 323 more rows</code></pre>
+<pre><code>Response: bill_length_mm (numeric)
+# A tibble: 342 × 1
+   bill_length_mm
+            &lt;dbl&gt;
+ 1           39.1
+ 2           39.5
+ 3           40.3
+ 4           36.7
+ 5           39.3
+ 6           38.9
+ 7           39.2
+ 8           34.1
+ 9           42  
+10           37.8
+# ℹ 332 more rows</code></pre>
 </div>
 </div>
-<p>Through working on your assignments, you may have also seen the following plot, which is a variant of the “penguin plot”:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="499"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>In this course we’ve talked plenty about the structure of a data frame, so this part of the grammar of graphics is straight-forward. Be sure that every variable that you wish to include in your plot is present in the same data frame.</p>
-<!-- But maintain some skepticism about the data that you intend to use. In the data frame above, we see that some of the values are listed as `NA`, meaning that they're missing ("NA" stands for "not applicable" or "no answer"). Why are they missing? How will this affect your plot? Real data is often riddled with errors, typos, or other unexpected features, so be sure to check your data[^datacheck]. -->
-<p>More fundamentally, be sure the data you’re using is well-suited to the message you aim to convey with your plot. Many plots go wrong right here at the outset, so be sure you’re on firm footing.</p>
+<p>Observe that the output of specify is essentially the same data frame that went in. the only difference is that <code>bill_length_mm</code> is tagged as the response variable. That will be useful for downstream functions.</p>
 </section>
-<section id="aesthetics" class="level3">
-<h3 class="anchored" data-anchor-id="aesthetics">Aesthetics</h3>
-<p>The most impactful decision that you’ll make when constructing a plot using the grammar of graphics is deciding how to encode variables in a data frame into visual variation in your plot.</p>
-<p>The penguin plot relies upon three forms of visual variation. The first is the location along the x-axis. Penguins with longer bills are placed on the right side of the plot and those with shorter bills are placed on the left. Variation in bill depth is captured by variation in the location along the y-axis, which is the second form. The third form is color: each of the three species is designated by one of three colors.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/mapping.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>We can summarize this encoding, or “aesthetic mapping”, as:</p>
+<section id="generate" class="level4">
+<h4 class="anchored" data-anchor-id="generate"><a href="https://infer.netlify.app/reference/generate.html"><code>generate()</code></a></h4>
+<p>The generate function generates many replicate data frames using simulation, the bootstrap procedure, or shuffling. Note that it must follow <code>specify()</code> so that it knows which column(s) to use.</p>
+<p>Useful functions include:</p>
 <ul>
-<li><code>bill_length_mm</code> is mapped to the x-axis</li>
-<li><code>bill_depth_mm</code> is mapped to the y-axis</li>
-<li><code>species</code> is mapped to color</li>
+<li><code>reps</code>: the number of data set replicates to generate. Generally set this to 500 when making confidence intervals.</li>
+<li><code>type</code>: the mechanism used to generate new data. Either <code>"bootstrap"</code>, <code>"draw"</code>, or <code>"permute"</code>.</li>
 </ul>
-<p>These are three of many different techniques for visually encoding variability. Here is a list of the aesthetic attributes that are most commonly used:</p>
-<ul>
-<li><code>x</code>: location along the x-axis</li>
-<li><code>y</code>: location along the y-axis</li>
-<li><code>color</code>: hue of the mark that represents the observation</li>
-<li><code>alpha</code>: the level of transparency of the color</li>
-<li><code>size</code>: the size of the mark representing the observation</li>
-<li><code>shape</code>: the shape of the mark representing the observation</li>
-<li><code>fill</code>: the color of the inside of the representation of an observation</li>
-</ul>
-</section>
-<section id="geometries" class="level3">
-<h3 class="anchored" data-anchor-id="geometries">Geometries</h3>
-<p>With the data set in place and the aesthetic mappings selected, the final choice in making our plot is to decide how to graphically express the observations themselves. For the penguin plot above, each observation in represented by a point, so it is said to use a “point” geometry. That is just one of many options. Other options are listed below.</p>
-<ul>
-<li><code>point</code></li>
-<li><code>bar</code></li>
-<li><code>line</code></li>
-<li><code>histogram</code></li>
-<li><code>density</code></li>
-<li><code>violin</code></li>
-<li><code>dotplot</code></li>
-<li><code>boxplot</code></li>
-</ul>
-<p>When we speak about whether a plot is a scatter plot, a bar chart, a histogram, etc, we are discussing the geometry of a plot. The impact of this choice can be seen in the following two plots.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Both plots share the same data (<code>penguins</code>) and the same aesthetic mappings(<code>bill_length</code> to the x-axis and <code>species</code> to the y-axis). Where they differ is the geometry: the plot on the left uses the violin while the one on the right uses the boxplot.</p>
-</section>
-<section id="example-births-over-time" class="level3">
-<h3 class="anchored" data-anchor-id="example-births-over-time">Example: Births over Time</h3>
-<p>The following plot displays the total number of births over time recorded in London, England during the 17<sup>th</sup> century.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>It was constructed from a data frame with 82 rows, the first six of which are shown below.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-   year total
-  &lt;int&gt; &lt;int&gt;
-1  1629  9901
-2  1630  9315
-3  1631  8524
-4  1632  9584
-5  1633  9997
-6  1634  9855</code></pre>
+<pre><code>Response: bill_length_mm (numeric)
+# A tibble: 684 × 2
+# Groups:   replicate [2]
+   replicate bill_length_mm
+       &lt;int&gt;          &lt;dbl&gt;
+ 1         1           54.2
+ 2         1           43.2
+ 3         1           35.5
+ 4         1           40.5
+ 5         1           46.1
+ 6         1           42.6
+ 7         1           52.8
+ 8         1           49.8
+ 9         1           39.3
+10         1           46.1
+# ℹ 674 more rows</code></pre>
 </div>
 </div>
-<p>We can decompose this graphic using the grammar of graphics.</p>
+<p>Observe:</p>
 <ul>
-<li><em>data</em>: the data frame displayed above</li>
-<li><em>aesthetic mappings</em>: year is mapped to the x-axis, total is mapped to the y-axis</li>
-<li><em>geometry</em>: the observations are expressed as a line</li>
+<li>the output data frame has two columns, <code>replicate</code>, which keeps track of the replicate (1 or 2 here) and <code>bill_length_mm</code>.</li>
+<li>the number of rows in the resulting data frame is the <span class="math inline">\(n \times reps\)</span>, so this data frame is contains all of the bootstrap replicate stapled together one on top of another.</li>
 </ul>
-<p>This process makes clear what decisions were made in constructing the plot and suggests ways in which we might consider changing the graphic. What if we changed the geometry so that the observations are expressed as points?</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
+</section>
+<section id="calculate" class="level4">
+<h4 class="anchored" data-anchor-id="calculate"><a href="https://infer.netlify.app/reference/calculate.html"><code>calculate()</code></a></h4>
+<p>The third link in an <code>infer</code> pipeline is the calculate function, which calculates a single summary statistic for each replicate data frame. The main argument is <code>stat</code>, which can take values <code>"mean"</code>, <code>"median"</code>, <code>"proportion"</code>, <code>"diff in means"</code>, <code>"diff in props"</code> and a few more.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: bill_length_mm (numeric)
+# A tibble: 2 × 2
+  replicate  stat
+      &lt;int&gt; &lt;dbl&gt;
+1         1  44.0
+2         2  43.6</code></pre>
 </div>
 </div>
+<p>Observe:</p>
+<ul>
+<li><p>The name of the summary statistic should be put in quotation marks.</p></li>
+<li><p>The resulting data frame had <code>reps</code> rows, one statistic from every replicate.</p></li>
+<li><p>The calculate function is a shortcut for an operation you’re familiar with:</p>
+<pre><code>df %&gt;%
+  group_by(replicate) %&gt;%
+  summarize(mean(bill_length_mm))</code></pre></li>
+</ul>
+</section>
+<section id="fit" class="level4">
+<h4 class="anchored" data-anchor-id="fit"><code>fit()</code></h4>
+<p>If you would like to create bootstrapped coefficients for a linear model, you’ll have to do something a bit different since there is a more than 1 summary statistic involved for each replicate data set. This is the role of <code>fit()</code>. There are no arguments to fill-in; it inherits the formula for the linear model from <code>specify()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins_adelie <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>penguins_adelie <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(body_mass_g <span class="sc">~</span> sex <span class="sc">+</span> flipper_length_mm) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   replicate [2]
+  replicate term              estimate
+      &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+1         1 intercept           1195. 
+2         1 sexmale              531. 
+3         1 flipper_length_mm     11.8
+4         2 intercept            489. 
+5         2 sexmale              597. 
+6         2 flipper_length_mm     15.4</code></pre>
 </div>
-<p>Is this a better graphic? That depends on the message you aim to convey. The line geometry emphasizes the general trend over time. The point geometry makes clearer the total births in each particular year.</p>
-<p>What if you wanted to convey both of those messages? If two geometries are compatible, they can be combined.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
+</div>
+<p>Observe:</p>
+<ul>
+<li>The data frame has a number of rows equal to <code>reps</code> times the number of coefficients in the linear model (in this case <span class="math inline">\(2 \times 3\)</span>).</li>
+<li>To get the collection of all coefficients for <code>flipper_length_mm</code>, for example, follow your <code>infer</code> pipeline with <code>filter(term == "flipper_length_mm")</code>.</li>
+</ul>
+</section>
+<section id="drop_na" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="drop_na"><code>drop_na()</code></h4>
+<p>This function drops rows that have missing values (<code>NA</code>s). Add as arguments any variables you would like it to look to for missing values. If no arguments are given it will drop a row if there is a missing value in <em>any</em> column (Be ware of this behavior. It might lead you to drop more rows that you mean to).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rank =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="cn">NA</span>),</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">letter =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"d"</span>, <span class="st">"e"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rank letter
+1    2   &lt;NA&gt;
+2    3   &lt;NA&gt;
+3    1   &lt;NA&gt;
+4    4      d</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rank letter
+1    4      d</code></pre>
 </div>
 </div>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class=""></span></div></div>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
 </div>
-<p>Is this a better graphic? Again, that depends. It makes it possible to see both the trend over time and the individual observations. But this plot is more complicated and therefore articulates each of those individual messages less clearly. Sometimes simplicity and a single message is best.</p>
-<p>Here’s another example of a plot that combines two geometries:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/income-dist.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
-</figure>
+<div class="spinner-grow spinner-grow-sm">
+
 </div>
-<p>Here, a density geometry is overlaid on top of a histogram geometry. It is unclear whether this was a good design decision. What do you think? What is the advantage of a stair-step histogram versus the smooth line of a density curve?</p>
+</div>
+<script type="vfs-file">
+W10=
+</script>
 </section>
 </section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The Grammar of Graphics is a framework to express a great variety of statistical graphics in terms of their shared elements. In this framework, the core features of the plot are the data, the aesthetic mapping between aesthetic attributions and variables in the data frame, and the geometry that is used to express the observation. There are a wide range of geometries and aesthetic attributes that can be drawn from and recombined in powerful ways. What we have done so far is cover just the fundamentals of the framework, so if you are unsatisfied with the resulting plots, that’s good. Now, we will polish up these plots to make thoughtful graphics that focus on effectively conveying a single message.</p>
-<p><a href="../../2-summarizing-data/03-a-grammar-of-graphics/tutorial.html" style="fontsize: 1.5em">Continue on to the tutorial portion of the notes <i class="fa-solid fa-arrow-right-long fa-xl" aria-label="arrow-right-long"></i></a></p>
 
-
-</section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Wilkinson, Leland. <em>The grammar of graphics</em>. Springer Science &amp; Business Media, 2005.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>For more context around The Grammar of Graphics and the development of modern visualization tools, read the brief <em>Three Waves of Data Visualization</em> by Elijah Meeks, Senior Data Visualization Engineer at Netflix: <a href="https://www.tableau.com/about/blog/2019/2/three-waves-data-visualization-brief-history-and-predictions-future-100830" class="uri">https://www.tableau.com/about/blog/2019/2/three-waves-data-visualization-brief-history-and-predictions-future-100830</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The <code>ggplot2</code> package is described in the manuscript, <a href="https://vita.had.co.nz/papers/layered-grammar.pdf"><em>A layered grammar of graphics</em></a>, by Hadley Wickham in the Journal of Computational and Graphical Statistics in 2010.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../3-generalization/09-bootstrapping";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1013,14 +932,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../2-summarizing-data/02-summarizing-numerical-data/notes.html" class="pagination-link" aria-label="Summarizing Numerical Data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Summarizing Numerical Data</span>
+      <a href="../../3-generalization/06-normal-approx/tutorial.html" class="pagination-link" aria-label="Continuous Distributions and Normal Approximations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Continuous Distributions and Normal Approximations</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../2-summarizing-data/04-conditioning/notes.html" class="pagination-link" aria-label="Conditioning">
-        <span class="nav-page-text">Conditioning</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
