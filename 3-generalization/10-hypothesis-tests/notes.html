@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -77,6 +43,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f183013bf538b41205adeeb9f936a13b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/stat20notes-1.0.0/stat20notes.js"></script>
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -394,6 +362,12 @@ window.Quarto = {
  <span class="menu-text">Hypothesis Testing</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../3-generalization/11-hypothesis-tests-2/notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Tests II</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -428,7 +402,6 @@ window.Quarto = {
   <li><a href="#what-a-p-value-is-not" id="toc-what-a-p-value-is-not" class="nav-link" data-scroll-target="#what-a-p-value-is-not">What a p-value is not</a></li>
   <li><a href="#one-test-many-variations" id="toc-one-test-many-variations" class="nav-link" data-scroll-target="#one-test-many-variations">One test, many variations</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#the-ideas-in-code" id="toc-the-ideas-in-code" class="nav-link" data-scroll-target="#the-ideas-in-code">The Ideas in Code</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides-fill"></i>Slides</a></li></ul></div></nav>
     </div>
@@ -503,40 +476,6 @@ window.Quarto = {
 # ℹ 1,631 more rows</code></pre>
 </div>
 </div>
-<!-- 
-We can summarize this data by counting up the number of shifts where Gilbert was working and the number of shifts where there was a death and display them in a contingency table. -->
-<!-- ::: {.content-visible when-format="html"} -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| warning: false -->
-<!-- #| message: false -->
-<!-- library(tidyverse) -->
-<!-- library(knitr) -->
-<!-- library(kableExtra) -->
-<!-- code_blue <- read_csv("https://www.dropbox.com/s/yj3grtilupyj9pv/code_blue.csv?dl=1") -->
-<!-- table(code_blue$staff, code_blue$death) |> -->
-<!--     kbl() |> -->
-<!--     kable_paper(full_width = F) |> -->
-<!--     column_spec(1, bold = T, border_right = T) |> -->
-<!--     row_spec(0, bold = T) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: {.content-visible when-format="pdf"} -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| warning: false -->
-<!-- #| message: false -->
-<!-- library(tidyverse) -->
-<!-- library(knitr) -->
-<!-- library(kableExtra) -->
-<!-- code_blue <- read_csv("https://www.dropbox.com/s/yj3grtilupyj9pv/code_blue.csv?dl=1") -->
-<!-- table(code_blue$staff, code_blue$death) |> -->
-<!--     kbl(format = "latex") |> -->
-<!--     kable_paper(full_width = F) |> -->
-<!--     column_spec(1, bold = T, border_right = T) |> -->
-<!--     row_spec(0, bold = T) -->
-<!-- ``` -->
-<!-- ::: -->
 <p>Using this data frame, we can calculate the sample proportion of shifts where Gilbert was working (257) that had a death (40) and compare them to the sample proportion of shifts where Gilbert was <em>not</em> working (1384) that had a death (34).</p>
 <p><span class="math display">\[
 \hat{p}_{gilbert} - \hat{p}_{no\_gilbert} = \frac{40}{257} - \frac{34}{1384} = .155 - .024 = .131
@@ -586,7 +525,7 @@ We can summarize this data by counting up the number of shifts where Gilbert was
 A description of the chance process for generating data. Sometimes referred to as <span class="math inline">\(H_0\)</span> (“H naught”).
 </dd>
 </dl>
-<p>It is common for the null hypothesis to be that nothing interesting is happening or that it is business as usual, a hypothesis that statisticians try to refute with data. In Gilbert case, this could be described as “The occurrence of a death is independence of the presence of Gilbert” or “The probability of death is the same whether or not Gilbert is on shift” or “The difference in the probability of death is zero, when comparing shifts where Gilbert is present to shifts where Gilbert is not present”. Importantly, the null model describes a possible state of the world, therefore the latter two versions are framed in terms of <em>parameters</em> (<span class="math inline">\(p\)</span> for proportions) instead of observed <em>statistics</em> (<span class="math inline">\(\hat{p}\)</span>).</p>
+<p>It is common for the null hypothesis to be that nothing interesting is happening or that it is business as usual, a hypothesis that statisticians try to refute with data. In Gilbert case, this could be described as “The occurrence of a death is independent of the presence of Gilbert” or “The probability of death is the same whether or not Gilbert is on shift” or “The difference in the probability of death is zero, when comparing shifts where Gilbert is present to shifts where Gilbert is not present”. Importantly, the null model describes a possible state of the world, therefore the latter two versions are framed in terms of <em>parameters</em> (<span class="math inline">\(p\)</span> for proportions) instead of observed <em>statistics</em> (<span class="math inline">\(\hat{p}\)</span>).</p>
 <p>The hypothesis that something indeed is going on is usually framed as the alternative hypothesis.</p>
 <dl>
 <dt>Alternative Hypothesis</dt>
@@ -649,161 +588,9 @@ The probability of a test statistic as rare or even more rare than the one obser
 <p>In classical statistics there are two primary tools for assessing the role that random variability plays in the data that you have observed. The first is the confidence interval, which quantifies the amount of uncertainty in a point estimate due to the variability inherent in drawing a small random sample from a population. The second is the hypothesis test, which postings a specific model by which the data could be generated, then assesses the degree to which the observed data is consistent with that model.</p>
 <p>The hypothesis test begins with the assertion of a null hypothesis that describes a chance mechanism for generating data. A test statistic is then selected that corresponds to that null hypothesis. From there, the sampling distribution of that statistic under the null hypothesis is approximated through a computational method (such as using permutation, as shown here) or one rooted in probability theory (such as the Central Limit Theorem). The final result of the hypothesis test procedure is the p-value, which is approximated as the proportion of the null distribution that is as or more extreme than the observed test statistic. The p-value measures the consistency between the null hypothesis and the observed test statistic and should be interpreted carefully.</p>
 <p>A postscript on the case of Kristen Gilbert. Although the hypothesis test ruled out random chance as the reason for the spike in deaths under her watch, it didn’t rule out other potential causes for that spike. It’s possible, after all, that the nightshifts that Gilbert was working happen to be the time of day when cardiac arrests are more common. For this reason, the statistical evidence was never presented to the jury, but the jury nonetheless found her guilty based on other evidence presented in the trial.</p>
-</section>
-<section id="the-ideas-in-code" class="level2">
-<h2 class="anchored" data-anchor-id="the-ideas-in-code">The Ideas in Code</h2>
-<p>A hypothesis test using permutation can be implemented by introducing one new step into the process used for calculating a bootstrap interval. The key distinction is that in a hypothesis test the researchers puts forth a model for how the data could be generated. That is the role of <code>hypothesize()</code>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/infer-hypothesize.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="440"></p>
-</figure>
-</div>
-<section id="hypothesize" class="level4">
-<h4 class="anchored" data-anchor-id="hypothesize">hypothesize()</h4>
-<p>A function to place before <code>generate()</code> in an <code>infer</code> pipeline where you can specify a null model under which to generate data. The one necessary argument is</p>
-<ul>
-<li><code>null</code>: the null hypothesis. Options include <code>"independence"</code> and <code>"point"</code>.</li>
-</ul>
-<p>The following example implements a permutation test under the null hypothesis that there is no relationship between the body mass of penguins and their</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stat20data)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> body_mass_g,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">explanatory =</span> sex) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: body_mass_g (numeric)
-Explanatory: sex (factor)
-Null Hypothesis: independence
-# A tibble: 333 × 2
-   body_mass_g sex   
-         &lt;dbl&gt; &lt;fct&gt; 
- 1        3750 male  
- 2        3800 female
- 3        3250 female
- 4        3450 female
- 5        3650 male  
- 6        3625 female
- 7        4675 male  
- 8        3200 female
- 9        3800 male  
-10        4400 male  
-# ℹ 323 more rows</code></pre>
-</div>
-</div>
-<p>Observe:</p>
-<ul>
-<li>The output is the original data frame with new information appended to describe what the null hypothesis is for this data set.</li>
-<li>There are other forms of hypothesis tests that you will see involving a <code>"point"</code> null hypothesis. Those require adding additional arguments to <code>hypothesize()</code>.</li>
-</ul>
-</section>
-<section id="calculating-an-observed-statistic" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-an-observed-statistic">Calculating an observed statistic</h4>
-<p>Let’s say for this example you select as your test statistic a difference in means, <span class="math inline">\(\bar{x}_{female} - \bar{x}_{male}\)</span>. While you can use tools you know - <code>group_by()</code> and <code>summarize()</code> to calculate this statistic, you can also recycle much of the code that you’ll use to build the null distribution with <code>infer</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> body_mass_g,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">explanatory =</span> sex) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>obs_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: body_mass_g (numeric)
-Explanatory: sex (factor)
-# A tibble: 1 × 1
-   stat
-  &lt;dbl&gt;
-1 -683.</code></pre>
-</div>
-</div>
-</section>
-<section id="calculating-the-null-distribution" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-the-null-distribution">Calculating the null distribution</h4>
-<p>To generate a null distribution of the kind of differences in means that you’d observe in a world where body mass had nothing to do with sex, just add the hypothesis with <code>hypothesize()</code> and the generation mechanism with <code>generate()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>null <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> body_mass_g,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">explanatory =</span> sex) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">500</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: body_mass_g (numeric)
-Explanatory: sex (factor)
-Null Hypothesis: independence
-# A tibble: 500 × 2
-   replicate    stat
-       &lt;int&gt;   &lt;dbl&gt;
- 1         1  -59.9 
- 2         2 -125.  
- 3         3   68.9 
- 4         4   37.1 
- 5         5  129.  
- 6         6   36.5 
- 7         7   -7.08
- 8         8   60.8 
- 9         9  -16.7 
-10        10  -63.8 
-# ℹ 490 more rows</code></pre>
-</div>
-</div>
-<p>Observe:</p>
-<ul>
-<li>The output data frame has <code>reps</code> rows and 2 columns: one indicating the replicate and the other with the statistic (a difference in means).</li>
-</ul>
-</section>
-<section id="visualize" class="level4">
-<h4 class="anchored" data-anchor-id="visualize"><code>visualize()</code></h4>
-<p>Once you have a collection of test statistics under the null hypothesis saved as <code>null</code>, it can be useful to visualize that approximation of the null distribution. For that, use the function <code>visualize()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> body_mass_g,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">explanatory =</span> sex) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">9</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: body_mass_g (numeric)
-Explanatory: sex (factor)
-Null Hypothesis: independence
-# A tibble: 9 × 2
-  replicate   stat
-      &lt;int&gt;  &lt;dbl&gt;
-1         1  95.6 
-2         2 -14.0 
-3         3 -28.1 
-4         4 -49.4 
-5         5 124.  
-6         6 -53.6 
-7         7 -32.0 
-8         8 -96.9 
-9         9  -4.08</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>null <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="dv">100</span>, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Observe:</p>
-<ul>
-<li><code>visualize()</code> expects a data frame of statistics.</li>
-<li>It is a short cut to creating a particular type of ggplot, so like any ggplot, you can add layers to it with <code>+</code>+.</li>
-<li><code>shade_p_value()</code> is a function you can add to shade the part of the null distribution that corresponds to the p-value. The first argument is the observed statistic, which we’ve recorded as 100 here to see the behavior of the function. <code>direction</code> is an argument where you specify if you would like to shade values <code>"less than"</code> or <code>"more than"</code> the observed value, or <code>"both"</code> for a two-tailed p-value.</li>
-</ul>
+<p><a href="../../3-generalization/10-hypothesis-tests/tutorial.html" style="fontsize: 1.5em">Continue on to the tutorial portion of the notes <i class="fa-solid fa-arrow-right-long fa-xl" aria-label="arrow-right-long"></i></a></p>
 
 
-</section>
 </section>
 
 

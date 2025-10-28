@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../3-generalization/10-hypothesis-tests/tutorial.html" rel="next">
 <link href="../../3-generalization/06-normal-approx/tutorial.html" rel="prev">
 <link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -292,6 +293,12 @@ window.Quarto = {
  <span class="menu-text">Bootstrapping</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../3-generalization/10-hypothesis-tests/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -379,16 +386,16 @@ window.Quarto = {
 # Groups:   replicate [2]
    replicate bill_length_mm
        &lt;int&gt;          &lt;dbl&gt;
- 1         1           41.4
- 2         1           53.4
- 3         1           49.4
- 4         1           42  
- 5         1           47.6
- 6         1           36.3
- 7         1           48.4
- 8         1           45.5
- 9         1           46.8
-10         1           48.5
+ 1         1           50.4
+ 2         1           45.5
+ 3         1           49.6
+ 4         1           47.7
+ 5         1           52.2
+ 6         1           35.3
+ 7         1           49.6
+ 8         1           38.8
+ 9         1           42.9
+10         1           46.5
 # ℹ 674 more rows</code></pre>
 </div>
 </div>
@@ -411,8 +418,8 @@ window.Quarto = {
 # A tibble: 2 × 2
   replicate  stat
       &lt;int&gt; &lt;dbl&gt;
-1         1  43.6
-2         2  43.9</code></pre>
+1         1  44.3
+2         2  44.1</code></pre>
 </div>
 </div>
 <p>Observe:</p>
@@ -441,12 +448,12 @@ window.Quarto = {
 # Groups:   replicate [2]
   replicate term              estimate
       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-1         1 intercept            633. 
-2         1 sexmale              552. 
-3         1 flipper_length_mm     14.6
-4         2 intercept            837. 
-5         2 sexmale              638. 
-6         2 flipper_length_mm     13.5</code></pre>
+1         1 intercept           -682. 
+2         1 sexmale              677. 
+3         1 flipper_length_mm     21.3
+4         2 intercept           -480. 
+5         2 sexmale              511. 
+6         2 flipper_length_mm     20.6</code></pre>
 </div>
 </div>
 <p>Observe:</p>
@@ -937,6 +944,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../3-generalization/10-hypothesis-tests/tutorial.html" class="pagination-link" aria-label="Hypothesis Testing">
+        <span class="nav-page-text">Hypothesis Testing</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
