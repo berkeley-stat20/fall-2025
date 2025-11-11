@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../4-causation/02-experiments/tutorial.html" rel="next">
 <link href="../../3-generalization/09-bootstrapping/tutorial.html" rel="prev">
 <link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -298,6 +299,12 @@ window.Quarto = {
  <span class="menu-text">Hypothesis Testing</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../4-causation/02-experiments/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Randomized Experiments</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -412,18 +419,18 @@ Explanatory: sex (factor)
 Explanatory: sex (factor)
 Null Hypothesis: independence
 # A tibble: 500 × 2
-   replicate  stat
-       &lt;int&gt; &lt;dbl&gt;
- 1         1 -13.4
- 2         2 -11.0
- 3         3 -18.2
- 4         4 -39.2
- 5         5  73.7
- 6         6 287. 
- 7         7 -83.4
- 8         8 -48.2
- 9         9  49.4
-10        10 -55.1
+   replicate   stat
+       &lt;int&gt;  &lt;dbl&gt;
+ 1         1  31.4 
+ 2         2 -36.5 
+ 3         3 -35.9 
+ 4         4 120.  
+ 5         5  19.9 
+ 6         6 -64.4 
+ 7         7  52.1 
+ 8         8   8.24
+ 9         9 121.  
+10        10 -24.5 
 # ℹ 490 more rows</code></pre>
 </div>
 </div>
@@ -447,17 +454,17 @@ Null Hypothesis: independence
 Explanatory: sex (factor)
 Null Hypothesis: independence
 # A tibble: 9 × 2
-  replicate    stat
-      &lt;int&gt;   &lt;dbl&gt;
-1         1 -112.  
-2         2   -3.78
-3         3 -144.  
-4         4 -189.  
-5         5   24.5 
-6         6  -49.1 
-7         7   85.1 
-8         8   13.9 
-9         9  158.  </code></pre>
+  replicate   stat
+      &lt;int&gt;  &lt;dbl&gt;
+1         1  -32.3
+2         2 -107. 
+3         3   90.2
+4         4 -150. 
+5         5  124. 
+6         6 -166. 
+7         7  104. 
+8         8   75.5
+9         9  -43.1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>null <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
@@ -934,6 +941,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../4-causation/02-experiments/tutorial.html" class="pagination-link" aria-label="Randomized Experiments">
+        <span class="nav-page-text">Randomized Experiments</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
