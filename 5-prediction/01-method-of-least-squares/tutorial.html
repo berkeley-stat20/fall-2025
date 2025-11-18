@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bootstrapping – Stat 20</title>
+<title>The Method of Least Squares – Stat 20</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../3-generalization/10-hypothesis-tests/tutorial.html" rel="next">
-<link href="../../3-generalization/06-normal-approx/tutorial.html" rel="prev">
+<link href="../../4-causation/03-matching/tutorial.html" rel="prev">
 <link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -146,17 +145,17 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Bootstrapping – Stat 20">
-<meta property="og:description" content="Another Approach to Confidence Intervals">
-<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/09-bootstrapping/assets/stat20-hex.png">
+<meta property="og:title" content="The Method of Least Squares – Stat 20">
+<meta property="og:description" content="Fitting a regression model by minimizing RSS">
+<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/5-prediction/01-method-of-least-squares/assets/stat20-hex.png">
 <meta property="og:site_name" content="Stat 20">
-<meta name="twitter:title" content="Bootstrapping – Stat 20">
-<meta name="twitter:description" content="Another Approach to Confidence Intervals">
-<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/09-bootstrapping/assets/stat20-hex.png">
+<meta name="twitter:title" content="The Method of Least Squares – Stat 20">
+<meta name="twitter:description" content="Fitting a regression model by minimizing RSS">
+<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/5-prediction/01-method-of-least-squares/assets/stat20-hex.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar floating nav-fixed slimcontent">
+<body class="nav-sidebar floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -212,7 +211,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/09-bootstrapping/tutorial.html">Bootstrapping</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../5-prediction/01-method-of-least-squares/tutorial.html">The Method of Least Squares</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -289,7 +288,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/09-bootstrapping/tutorial.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../3-generalization/09-bootstrapping/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bootstrapping</span></a>
   </div>
 </li>
@@ -313,7 +312,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../5-prediction/01-method-of-least-squares/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../5-prediction/01-method-of-least-squares/tutorial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">The Method of Least Squares</span></a>
   </div>
 </li>
@@ -324,16 +323,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/09-bootstrapping/tutorial.html">Bootstrapping</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../5-prediction/01-method-of-least-squares/tutorial.html">The Method of Least Squares</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Bootstrapping</h1>
-<p class="subtitle lead">Another Approach to Confidence Intervals</p>
+<h1 class="title">The Method of Least Squares</h1>
+<p class="subtitle lead">Fitting a regression model by minimizing RSS</p>
 </div>
 
 
@@ -350,160 +347,72 @@ window.Quarto = {
 </header>
 
 
-<section id="ideas-in-code" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="ideas-in-code">Ideas in code</h2>
-<p>These notes utilize several functions from the <code>infer</code> library, which can be used to calculate confidence intervals and conduct hypothesis tests. It can be loaded with <code>library(infer)</code>.</p>
-<p>With <code>infer</code>, each step in the bootstrap procedure is controlled by one of four functions.</p>
-<div class="quarto-figure quarto-figure-center">
+<section id="the-ideas-in-code" class="level2">
+<h2 class="anchored" data-anchor-id="the-ideas-in-code">The Ideas in Code</h2>
+<section id="writing-a-function-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="writing-a-function-in-r">Writing a function in R</h3>
+<p>We have been using functions that already exist in either the base installation of R or in another package, such as <code>dplyr</code>, <code>ggplot2</code> or <code>stat20data</code>, but sometimes it can be useful to write our own functions.</p>
+<p>Custom <strong>functions</strong> in R can be created with the function <code>function()</code> (quite meta) and assigned to an object. The <em>arguments</em> that we would like the function to take go inside the parentheses of <code>function()</code>. The things that we would like the function to do go inside <code>{}</code>.</p>
+<p>Here is a representation of <span class="math inline">\(f(x) = (x+.5)^2\)</span> in R, which we are saving into the object <code>f</code>. Once we run the following code, we’ll have access to <code>f</code> in our environment and can use it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  (x <span class="sc">+</span> .<span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="at">x =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="nelder-mead-on-a-simple-function" class="level3">
+<h3 class="anchored" data-anchor-id="nelder-mead-on-a-simple-function">Nelder-Mead on a simple function</h3>
+<p>Here, we plot the function <span class="math inline">\(f(x)\)</span> that we described above over the <span class="math inline">\(x\)</span> values <span class="math inline">\([-1,1]\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="images/infer-pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="440"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-<p>For a comprehensive list of templates that you can use to form intervals, see the online documentation: <a href="https://infer.netlify.app/articles/observed_stat_examples.html" class="uri">https://infer.netlify.app/articles/observed_stat_examples.html</a>.</p>
-<section id="specify" class="level4">
-<h4 class="anchored" data-anchor-id="specify"><a href="https://infer.netlify.app/reference/specify.html"><code>specify()</code></a></h4>
-<p>The specify function allows you to specify which column of a data frame you are using as your response variable (your variable of interest). When looking at the relationship between two variables you will specify both the response and the explanatory variables. As such, the main arguments are <code>response</code> and <code>explanatory</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: bill_length_mm (numeric)
-# A tibble: 342 × 1
-   bill_length_mm
-            &lt;dbl&gt;
- 1           39.1
- 2           39.5
- 3           40.3
- 4           36.7
- 5           39.3
- 6           38.9
- 7           39.2
- 8           34.1
- 9           42  
-10           37.8
-# ℹ 332 more rows</code></pre>
 </div>
 </div>
-<p>Observe that the output of specify is essentially the same data frame that went in. the only difference is that <code>bill_length_mm</code> is tagged as the response variable. That will be useful for downstream functions.</p>
-</section>
-<section id="generate" class="level4">
-<h4 class="anchored" data-anchor-id="generate"><a href="https://infer.netlify.app/reference/generate.html"><code>generate()</code></a></h4>
-<p>The generate function generates many replicate data frames using simulation, the bootstrap procedure, or shuffling. Note that it must follow <code>specify()</code> so that it knows which column(s) to use.</p>
-<p>Useful functions include:</p>
+<p>We can see that the minimum value of <span class="math inline">\(f(x)\)</span> lies between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>. Can we find the value of <span class="math inline">\(x\)</span> that will give us this minimum using Nelder-Mead? We can try, using the <code>optim()</code> function!</p>
+<section id="optim" class="level4">
+<h4 class="anchored" data-anchor-id="optim"><code>optim()</code></h4>
+<p>There are two main arguments to modify:</p>
 <ul>
-<li><code>reps</code>: the number of data set replicates to generate. Generally set this to 500 when making confidence intervals.</li>
-<li><code>type</code>: the mechanism used to generate new data. Either <code>"bootstrap"</code>, <code>"draw"</code>, or <code>"permute"</code>.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: bill_length_mm (numeric)
-# A tibble: 684 × 2
-# Groups:   replicate [2]
-   replicate bill_length_mm
-       &lt;int&gt;          &lt;dbl&gt;
- 1         1           53.5
- 2         1           46.5
- 3         1           41.1
- 4         1           39.6
- 5         1           45  
- 6         1           45.5
- 7         1           43.2
- 8         1           35.3
- 9         1           51.1
-10         1           51  
-# ℹ 674 more rows</code></pre>
-</div>
-</div>
-<p>Observe:</p>
+<li><p>The function to optimize is passed to <code>fn</code>. In this case, the function we made is called <code>f</code>.</p></li>
+<li><p>You provide a <em>starting point</em> for the algorithm with <code>par</code>.</p>
 <ul>
-<li>the output data frame has two columns, <code>replicate</code>, which keeps track of the replicate (1 or 2 here) and <code>bill_length_mm</code>.</li>
-<li>the number of rows in the resulting data frame is the <span class="math inline">\(n \times reps\)</span>, so this data frame is contains all of the bootstrap replicate stapled together one on top of another.</li>
+<li>In this situation, we are trying to find the value of <span class="math inline">\(x\)</span> to minimize <span class="math inline">\(f(x)\)</span>, so we will enter a number. We’ll start with <span class="math inline">\(x = .5\)</span>, but you can tinker around yourself and try something different. Depending on what you start with, you may come up with something different as a final answer, so feel free to try out different numbers!</li>
+<li>In a linear regression context, we are trying find the values of the coefficients <span class="math inline">\(b_0\)</span> through <span class="math inline">\(b_p\)</span> to minimize <span class="math inline">\(\hat{y}\)</span>, so we need to input a <em>vector</em> of starting values, one for each coefficient. This can be done using <code>c()</code>.</li>
+</ul></li>
 </ul>
-</section>
-<section id="calculate" class="level4">
-<h4 class="anchored" data-anchor-id="calculate"><a href="https://infer.netlify.app/reference/calculate.html"><code>calculate()</code></a></h4>
-<p>The third link in an <code>infer</code> pipeline is the calculate function, which calculates a single summary statistic for each replicate data frame. The main argument is <code>stat</code>, which can take values <code>"mean"</code>, <code>"median"</code>, <code>"proportion"</code>, <code>"diff in means"</code>, <code>"diff in props"</code> and a few more.</p>
+<p>Nelder-Mead is a <em>random</em> algorithm; each time you run it you’ll get a (slightly) different answer. We therefore use <code>set.seed()</code> to make sure the same value is printed out for the purpose of publishing these notes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> bill_length_mm) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">optim</span>(<span class="at">par =</span> .<span class="dv">5</span>, <span class="at">fn =</span> f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Response: bill_length_mm (numeric)
-# A tibble: 2 × 2
-  replicate  stat
-      &lt;int&gt; &lt;dbl&gt;
-1         1  44.3
-2         2  43.5</code></pre>
+<pre><code>$par
+[1] -0.4
+
+$value
+[1] 0.01
+
+$counts
+function gradient 
+      12       NA 
+
+$convergence
+[1] 0
+
+$message
+NULL</code></pre>
 </div>
 </div>
-<p>Observe:</p>
-<ul>
-<li><p>The name of the summary statistic should be put in quotation marks.</p></li>
-<li><p>The resulting data frame had <code>reps</code> rows, one statistic from every replicate.</p></li>
-<li><p>The calculate function is a shortcut for an operation you’re familiar with:</p>
-<pre><code>df %&gt;%
-  group_by(replicate) %&gt;%
-  summarize(mean(bill_length_mm))</code></pre></li>
-</ul>
-</section>
-<section id="fit" class="level4">
-<h4 class="anchored" data-anchor-id="fit"><code>fit()</code></h4>
-<p>If you would like to create bootstrapped coefficients for a linear model, you’ll have to do something a bit different since there is a more than 1 summary statistic involved for each replicate data set. This is the role of <code>fit()</code>. There are no arguments to fill-in; it inherits the formula for the linear model from <code>specify()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins_adelie <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>penguins_adelie <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(body_mass_g <span class="sc">~</span> sex <span class="sc">+</span> flipper_length_mm) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-# Groups:   replicate [2]
-  replicate term              estimate
-      &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-1         1 intercept            352. 
-2         1 sexmale              593. 
-3         1 flipper_length_mm     16.0
-4         2 intercept            706. 
-5         2 sexmale              530. 
-6         2 flipper_length_mm     14.3</code></pre>
-</div>
-</div>
-<p>Observe:</p>
-<ul>
-<li>The data frame has a number of rows equal to <code>reps</code> times the number of coefficients in the linear model (in this case <span class="math inline">\(2 \times 3\)</span>).</li>
-<li>To get the collection of all coefficients for <code>flipper_length_mm</code>, for example, follow your <code>infer</code> pipeline with <code>filter(term == "flipper_length_mm")</code>.</li>
-</ul>
-</section>
-<section id="drop_na" class="level4 page-columns page-full">
-<h4 class="anchored" data-anchor-id="drop_na"><code>drop_na()</code></h4>
-<p>This function drops rows that have missing values (<code>NA</code>s). Add as arguments any variables you would like it to look to for missing values. If no arguments are given it will drop a row if there is a missing value in <em>any</em> column (Be ware of this behavior. It might lead you to drop more rows that you mean to).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rank =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="cn">NA</span>),</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">letter =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"d"</span>, <span class="st">"e"</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  rank letter
-1    2   &lt;NA&gt;
-2    3   &lt;NA&gt;
-3    1   &lt;NA&gt;
-4    4      d</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  rank letter
-1    4      d</code></pre>
-</div>
-</div>
-<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class=""></span></div></div>
+<p>You don’t need to understand the entirety of the output given by <code>optim()</code>– just focus on the number under <code>$par</code>. This is the value of <span class="math inline">\(x\)</span> that <code>optim()</code> thinks will give the minimum value of <span class="math inline">\(f(x)\)</span> after. In truth, the correct value is <span class="math inline">\(-0.5\)</span>, so we didn’t fare too badly!</p>
 
 
 <script type="ojs-module-contents">
@@ -522,6 +431,7 @@ W10=
 </script>
 </section>
 </section>
+</section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
@@ -529,7 +439,7 @@ eyJjb250ZW50cyI6W119
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../3-generalization/09-bootstrapping";
+window._ojs.paths.runtimeToDoc = "../../5-prediction/01-method-of-least-squares";
 window._ojs.paths.runtimeToRoot = "../..";
 window._ojs.paths.docToRoot = "../..";
 window._ojs.selfContained = false;
@@ -957,14 +867,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../3-generalization/06-normal-approx/tutorial.html" class="pagination-link" aria-label="Continuous Distributions and Normal Approximations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Continuous Distributions and Normal Approximations</span>
+      <a href="../../4-causation/03-matching/tutorial.html" class="pagination-link" aria-label="Causal Effects in Observational Studies">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Causal Effects in Observational Studies</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../3-generalization/10-hypothesis-tests/tutorial.html" class="pagination-link" aria-label="Hypothesis Testing">
-        <span class="nav-page-text">Hypothesis Testing</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

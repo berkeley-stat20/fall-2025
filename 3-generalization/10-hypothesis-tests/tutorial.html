@@ -305,6 +305,18 @@ window.Quarto = {
  <span class="menu-text">Randomized Experiments</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../4-causation/03-matching/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Causal Effects in Observational Studies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../5-prediction/01-method-of-least-squares/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Method of Least Squares</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -419,18 +431,18 @@ Explanatory: sex (factor)
 Explanatory: sex (factor)
 Null Hypothesis: independence
 # A tibble: 500 × 2
-   replicate   stat
-       &lt;int&gt;  &lt;dbl&gt;
- 1         1  77.3 
- 2         2  -8.88
- 3         3 111.  
- 4         4 -11.6 
- 5         5  43.7 
- 6         6 -64.1 
- 7         7 143.  
- 8         8  36.8 
- 9         9  65.3 
-10        10  67.1 
+   replicate     stat
+       &lt;int&gt;    &lt;dbl&gt;
+ 1         1   12.1  
+ 2         2  -35.3  
+ 3         3  -98.7  
+ 4         4  -14.0  
+ 5         5  -72.6  
+ 6         6  134.   
+ 7         7  -20.6  
+ 8         8 -264.   
+ 9         9   -0.774
+10        10  -44.0  
 # ℹ 490 more rows</code></pre>
 </div>
 </div>
@@ -456,15 +468,15 @@ Null Hypothesis: independence
 # A tibble: 9 × 2
   replicate   stat
       &lt;int&gt;  &lt;dbl&gt;
-1         1   66.2
-2         2  -44.6
-3         3  156. 
-4         4   18.4
-5         5  -64.7
-6         6 -110. 
-7         7   11.5
-8         8  -71.0
-9         9  223. </code></pre>
+1         1  -1.67
+2         2 216.  
+3         3 -10.7 
+4         4  58.4 
+5         5  54.8 
+6         6  39.8 
+7         7 -99.0 
+8         8 112.  
+9         9  16.9 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>null <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
