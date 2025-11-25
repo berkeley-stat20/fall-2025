@@ -77,6 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f183013bf538b41205adeeb9f936a13b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/stat20notes-1.0.0/stat20notes.js"></script>
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -487,13 +489,6 @@ window.Quarto = {
   <li><a href="#non-linear-transformation" id="toc-non-linear-transformation" class="nav-link" data-scroll-target="#non-linear-transformation">Non-linear transformation</a></li>
   <li><a href="#polynomials" id="toc-polynomials" class="nav-link" data-scroll-target="#polynomials">Polynomials</a></li>
   </ul></li>
-  <li><a href="#the-ideas-in-code" id="toc-the-ideas-in-code" class="nav-link" data-scroll-target="#the-ideas-in-code">The Ideas in Code</a>
-  <ul class="collapse">
-  <li><a href="#inspect-model-output-with-the-broom-library" id="toc-inspect-model-output-with-the-broom-library" class="nav-link" data-scroll-target="#inspect-model-output-with-the-broom-library">Inspect model output with the <code>broom</code> library</a></li>
-  <li><a href="#fitting-polynomials-in-r-with-poly" id="toc-fitting-polynomials-in-r-with-poly" class="nav-link" data-scroll-target="#fitting-polynomials-in-r-with-poly">Fitting polynomials in R with <code>poly()</code></a></li>
-  <li><a href="#making-predictions-on-a-new-observation-with-predict" id="toc-making-predictions-on-a-new-observation-with-predict" class="nav-link" data-scroll-target="#making-predictions-on-a-new-observation-with-predict">Making predictions on a new observation with <code>predict()</code></a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides-fill"></i>Slides</a></li></ul></div></nav>
     </div>
@@ -698,187 +693,14 @@ f(x) = c_0 + c_1 \cdot x + c_2 \cdot x^2 + \dots + c_d \cdot x^d
 \]</span></p>
 <p>where the <span class="math inline">\(d+1\)</span> coefficients <span class="math inline">\(c_0, c_1, \dots, c_d\)</span> are constants The number <span class="math inline">\(d\)</span> is called the <em>degree</em> of the polynomial – this is the largest exponent that appears.</p>
 <p>Polynomials are flexible functions that can be quite useful for modeling. We can fit a polynomial model by adding new transformed variables to the data frame then fitting a linear model with these new transformed variables. This is just like how we fit a logarithmic function before by adding a new log transformed variable to the data frame then fit a linear model.</p>
-<!---
-
-
-
-::: {.cell}
-::: {.cell-output .cell-output-stdout}
-
-```
-# A tibble: 100 × 2
-       x      y
-   <dbl>  <dbl>
- 1  1.02 -2.61 
- 2  3.33 -7.59 
- 3  5.24  5.20 
- 4  2.82 -8.64 
- 5  5.40 11.9  
- 6  2.57 -3.53 
- 7  5.10  1.24 
- 8  2.07 -0.920
- 9  2.41 -1.36 
-10  1.79  0.853
-# ℹ 90 more rows
-```
-
-
-:::
-:::
-
-::: {.cell}
-::: {.cell-output .cell-output-stdout}
-
-```
-
-Call:
-lm(formula = y ~ x + x_sq + x_cube, data = df_with_poly)
-
-Coefficients:
-(Intercept)            x         x_sq       x_cube  
-    -20.086       34.669      -16.352        2.042  
-```
-
-
-:::
-:::
-
-
-
-
-Now we can plot the predictions as a function of the original x variable.
-
-
-
-
-::: {.cell layout-align="center"}
-::: {.cell-output-display}
-![](notes_files/figure-html/unnamed-chunk-14-1.png){fig-align='center' width=672}
-:::
-:::
-
-
-
-
-
-#### Shortcut to fitting polynomials
--->
 <p>The prediction function here is a polynomial given by</p>
 <p><span class="math display">\[
 \widehat{y} = -20.086 + 34.669 \cdot x -16.352 \cdot x^2 + 2.042 \cdot x^3
 \]</span></p>
-<!-- RAAWRRRR I cannot get interpolation to work  -->
-<!-- Ok now what does a 50 degree polynomial fit look like? -->
-<!-- ```{r} -->
-<!-- lm_poly_big <-  lm(y~ poly(x, 101, raw=T), data=df) -->
-<!-- df %>% -->
-<!--      mutate(y_pred = predict(lm_poly_big, data=df)) %>% -->
-<!--      ggplot(aes(x=x, y=y)) + -->
-<!--      geom_point() + -->
-<!--      geom_line(aes(x=x, y=y_pred), color='red') -->
-<!-- ``` -->
-</section>
-</section>
-<section id="the-ideas-in-code" class="level2">
-<h2 class="anchored" data-anchor-id="the-ideas-in-code">The Ideas in Code</h2>
-<section id="inspect-model-output-with-the-broom-library" class="level3">
-<h3 class="anchored" data-anchor-id="inspect-model-output-with-the-broom-library">Inspect model output with the <code>broom</code> library</h3>
-<p>Consider the code we ran earlier to fit a linear model which can predict graduation rate using the poverty rate.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Graduates <span class="sc">~</span> Poverty, <span class="at">data =</span> poverty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>When you run this code, you’ll see a new object appear in your environment: <code>m1</code>. This new object, though, is not a vector or a data frame. It’s a much richer object called a <em>list</em> that stores all sorts of information about your linear model. You can click through the different part of <code>m1</code> in your environment pane, or your can use functions from the <code>broom</code> package to extract the important components using code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.558         0.549  2.50      61.8 3.11e-10     1  -118.  242.  248.
-# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
-</div>
-</div>
-<p>The <code>glance()</code> function returns a series of different metrics used to evaluate the quality of your model. First among those is r-squared. Because the output of <code>glance()</code> is just another data frame, we can extract just the r-squared column using <code>select()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m1) <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  r.squared
-      &lt;dbl&gt;
-1     0.558</code></pre>
-</div>
-</div>
-<p>Here’s the <span class="math inline">\(R^2\)</span> we got earlier!</p>
-</section>
-<section id="fitting-polynomials-in-r-with-poly" class="level3">
-<h3 class="anchored" data-anchor-id="fitting-polynomials-in-r-with-poly">Fitting polynomials in R with <code>poly()</code></h3>
-<p>In R, we can fit polynomials using the <code>poly()</code> function. Here is the code that was used to fit the polynomial earlier in the notes.</p>
-<p>You do not need to worry about the meaning behind the <code>raw = TRUE</code> argument. The simulated data frame mentioned earlier is called <code>df</code>, and has two variables in it: <code>predictor</code> and <code>response</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predictor =</span> x, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">response =</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> response <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> predictor, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">degree =</span> <span class="dv">3</span>, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = response ~ poly(x = predictor, degree = 3, raw = TRUE), 
-    data = df)
-
-Coefficients:
-                                 (Intercept)  
-                                     -20.086  
-poly(x = predictor, degree = 3, raw = TRUE)1  
-                                      34.669  
-poly(x = predictor, degree = 3, raw = TRUE)2  
-                                     -16.352  
-poly(x = predictor, degree = 3, raw = TRUE)3  
-                                       2.042  </code></pre>
-</div>
-</div>
-</section>
-<section id="making-predictions-on-a-new-observation-with-predict" class="level3">
-<h3 class="anchored" data-anchor-id="making-predictions-on-a-new-observation-with-predict">Making predictions on a new observation with <code>predict()</code></h3>
-<p>We have spending a lot of time talking about how to fit a model meant for predicting, but have not actually done any predicting! The <code>predict()</code> function can help us do this. It takes in two main arguments:</p>
-<ul>
-<li><code>object</code>: This is the linear model object which contains the coefficients <span class="math inline">\(b_0\)</span>, …, <span class="math inline">\(b_p\)</span>. In the graduate and poverty example, this object was <code>m1</code>. We had <code>m1</code> through <code>m4</code> in the ZAGAT example.</li>
-<li><code>newdata</code>: This is a <em>data frame</em> containing the new observation(s). This data frame must at least contain each of the predictor variables used in the column, with a value of these variables for each observation.</li>
-</ul>
-<section id="example-zagat-food-rating" class="level4">
-<h4 class="anchored" data-anchor-id="example-zagat-food-rating">Example: ZAGAT food rating</h4>
-<p>Here, we will use <code>m2</code> from the ZAGAT example. This model used <span class="math inline">\(food\)</span> and <span class="math inline">\(geo\)</span> in an attempt to predict price at a restaurant.</p>
-<p>First, let’s make a new data frame with a couple of new, made-up observations.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>restaurants <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">food =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">17</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo =</span> <span class="fu">c</span>(<span class="st">"east"</span>, <span class="st">"west"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>One of these restaurants is located in east Manhattan and has a food score of 25/30, while the other one is in west Manhattan and has a food score of 17/30.</p>
-<p>Now, we can use this data frame alongside our <code>m2</code> model object to make predictions for the prices.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object =</span> m2, <span class="at">newdata =</span> restaurants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       1        2 
-55.89738 31.44043 </code></pre>
-</div>
-</div>
-<p>We are predicted to have to pay roughly <span class="math inline">\(\$56\)</span> at the first restaurant and roughly <span class="math inline">\(\$31\)</span> at the second.</p>
-</section>
-</section>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>In this lecture we learned how to evaluate and improve out predictions. While there are many metrics to measure the explanatory power of a model, one of the most commonly used is <span class="math inline">\(R^2\)</span>, the proportion of the variability of the <span class="math inline">\(y\)</span> that is explained by the model.</p>
-<p>To improve our predictions - and increase the <span class="math inline">\(R^2\)</span> - we saw three different strategies. If you have additional predictors in your data frame, its easy as pie to add them to your regression model and you are guaranteed to increase your <span class="math inline">\(R^2\)</span>.</p>
-<p>A second strategy is capture non-linear structure by creating new variables that are simple transformations of the existing variable. The third approach, also targeting non-linear structure, is to replace a single predictor with a polynomial.</p>
+<p><a href="../../5-prediction/02-improving-predictions/tutorial.html" style="fontsize: 1.5em">Continue on to the tutorial portion of the notes <i class="fa-solid fa-arrow-right-long fa-xl" aria-label="arrow-right-long"></i></a></p>
 
 
+</section>
 </section>
 
 

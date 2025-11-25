@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Continuous Distributions and Normal Approximations – Stat 20</title>
+<title>Evaluating and Improving Predictions – Stat 20</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../3-generalization/09-bootstrapping/tutorial.html" rel="next">
-<link href="../../3-generalization/04-random-variables/tutorial.html" rel="prev">
+<link href="../../5-prediction/01-method-of-least-squares/tutorial.html" rel="prev">
 <link href="../../assets/stat20-hex.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -146,13 +145,13 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Continuous Distributions and Normal Approximations – Stat 20">
-<meta property="og:description" content="Connections to boxes, continuous distributions, and a fundamental result">
-<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/06-normal-approx/assets/stat20-hex.png">
+<meta property="og:title" content="Evaluating and Improving Predictions – Stat 20">
+<meta property="og:description" content="\(R^2\), Adding Predictors, Transformations, and Polynomials">
+<meta property="og:image" content="https://stat20.berkeley.edu/fall-2025/5-prediction/02-improving-predictions/assets/stat20-hex.png">
 <meta property="og:site_name" content="Stat 20">
-<meta name="twitter:title" content="Continuous Distributions and Normal Approximations – Stat 20">
-<meta name="twitter:description" content="Connections to boxes, continuous distributions, and a fundamental result">
-<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/3-generalization/06-normal-approx/assets/stat20-hex.png">
+<meta name="twitter:title" content="Evaluating and Improving Predictions – Stat 20">
+<meta name="twitter:description" content="\(R^2\), Adding Predictors, Transformations, and Polynomials">
+<meta name="twitter:image" content="https://stat20.berkeley.edu/fall-2025/5-prediction/02-improving-predictions/assets/stat20-hex.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -212,7 +211,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/06-normal-approx/tutorial.html">Continuous Distributions and Normal Approximations</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../5-prediction/02-improving-predictions/tutorial.html">Evaluating and Improving Predictions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -283,7 +282,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../3-generalization/06-normal-approx/tutorial.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../3-generalization/06-normal-approx/tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Distributions and Normal Approximations</span></a>
   </div>
 </li>
@@ -319,7 +318,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../5-prediction/02-improving-predictions/tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../5-prediction/02-improving-predictions/tutorial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Evaluating and Improving Predictions</span></a>
   </div>
 </li>
@@ -334,10 +333,10 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../3-generalization/06-normal-approx/tutorial.html">Continuous Distributions and Normal Approximations</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials.html">R Tutorials</a></li><li class="breadcrumb-item"><a href="../../5-prediction/02-improving-predictions/tutorial.html">Evaluating and Improving Predictions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Continuous Distributions and Normal Approximations</h1>
-<p class="subtitle lead">Connections to boxes, continuous distributions, and a fundamental result</p>
+<h1 class="title">Evaluating and Improving Predictions</h1>
+<p class="subtitle lead"><span class="math inline">\(R^2\)</span>, Adding Predictors, Transformations, and Polynomials</p>
 </div>
 
 
@@ -354,150 +353,134 @@ window.Quarto = {
 </header>
 
 
-<section id="ideas-in-code" class="level2">
-<h2 class="anchored" data-anchor-id="ideas-in-code">Ideas in code</h2>
-<section id="useful-functions" class="level3">
-<h3 class="anchored" data-anchor-id="useful-functions">Useful functions</h3>
-</section>
-<section id="uniforma-b" class="level3">
-<h3 class="anchored" data-anchor-id="uniforma-b">Uniform<span class="math inline">\((a, b)\)</span></h3>
-<ol type="1">
-<li><code>dunif</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X\)</span> where <span class="math inline">\(f(x) = \displaystyle \frac{1}{b-a}\)</span>, for <span class="math inline">\(a &lt; x &lt; b\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-<ol start="2" type="1">
-<li><code>punif</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-<ol start="3" type="1">
-<li><code>runif</code> generates random numbers from the <span class="math inline">\(Unif(a,b)\)</span> distribution.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>n</code>: the size of the sample we want</li>
-<li><code>min</code>: the parameter <span class="math inline">\(a\)</span>, the lower end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>min = 0</code></li>
-<li><code>max</code>: the parameter <span class="math inline">\(b\)</span>, the upper end point of the interval for <span class="math inline">\(X\)</span>. The default value is <code>max = 1</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="normalmu-sigma2" class="level3">
-<h3 class="anchored" data-anchor-id="normalmu-sigma2">Normal<span class="math inline">\((\mu, \sigma^2)\)</span></h3>
-<ol type="1">
-<li><code>dnorm</code> computes the density <span class="math inline">\(f(x)\)</span> of <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span></li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>x</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(f(x)\)</span></li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<ol start="2" type="1">
-<li><code>pnorm</code> computes the cdf <span class="math inline">\(F(x) = P(X \le x)\)</span> of <span class="math inline">\(X\)</span>.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>q</code>: the value of <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x)\)</span></li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<ol start="3" type="1">
-<li><code>rnorm</code> generates random numbers from the Normal<span class="math inline">\((\mu, \sigma^2)\)</span> distribution.</li>
-</ol>
-<ul>
-<li>Arguments:
-<ul>
-<li><code>n</code>: the size of the sample we want</li>
-<li><code>mean</code>: the parameter <span class="math inline">\(\mu\)</span>, the mean of the distribution. The default value is <code>mean = 0</code></li>
-<li><code>sd</code>: the parameter <span class="math inline">\(\sigma\)</span>, the sd of the distribution. The default value is <code>sd = 1</code></li>
-</ul></li>
-</ul>
-<section id="example" class="level4">
-<h4 class="anchored" data-anchor-id="example">Example</h4>
-<p>Let’s verify the empirical rule for the standard normal random variable:</p>
-<p>Note that (for example) <span class="math inline">\(P(-1 \le X \le 1) = F(1) - F(-1)\)</span>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="tutorial_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<section id="the-ideas-in-code" class="level2">
+<h2 class="anchored" data-anchor-id="the-ideas-in-code">The Ideas in Code</h2>
+<section id="inspect-model-output-with-the-broom-library" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-model-output-with-the-broom-library">Inspect model output with the <code>broom</code> library</h3>
+<p>Consider the code we ran earlier to fit a linear model which can predict graduation rate using the poverty rate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6826895</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Graduates <span class="sc">~</span> Poverty, <span class="at">data =</span> poverty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you run this code, you’ll see a new object appear in your environment: <code>m1</code>. This new object, though, is not a vector or a data frame. It’s a much richer object called a <em>list</em> that stores all sorts of information about your linear model. You can click through the different part of <code>m1</code> in your environment pane, or your can use functions from the <code>broom</code> package to extract the important components using code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9544997</code></pre>
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.558         0.549  2.50      61.8 3.11e-10     1  -118.  242.  248.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>glance()</code> function returns a series of different metrics used to evaluate the quality of your model. First among those is r-squared. Because the output of <code>glance()</code> is just another data frame, we can extract just the r-squared column using <code>select()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m1) <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9973002</code></pre>
+<pre><code># A tibble: 1 × 1
+  r.squared
+      &lt;dbl&gt;
+1     0.558</code></pre>
+</div>
+</div>
+<p>Here’s the <span class="math inline">\(R^2\)</span> we got earlier!</p>
+</section>
+<section id="fitting-polynomials-in-r-with-poly" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-polynomials-in-r-with-poly">Fitting polynomials in R with <code>poly()</code></h3>
+<p>In R, we can fit polynomials using the <code>poly()</code> function. Here is the code that was used to fit the polynomial earlier in the notes.</p>
+<p>You do not need to worry about the meaning behind the <code>raw = TRUE</code> argument. The simulated data frame mentioned earlier is called <code>df</code>, and has two variables in it: <code>predictor</code> and <code>response</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predictor =</span> x, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">response =</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> response <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> predictor, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">degree =</span> <span class="dv">3</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = response ~ poly(x = predictor, degree = 3, raw = TRUE), 
+    data = df)
+
+Coefficients:
+                                 (Intercept)  
+                                     -20.086  
+poly(x = predictor, degree = 3, raw = TRUE)1  
+                                      34.669  
+poly(x = predictor, degree = 3, raw = TRUE)2  
+                                     -16.352  
+poly(x = predictor, degree = 3, raw = TRUE)3  
+                                       2.042  </code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="the-argument-prob-in-the-function-sample" class="level3">
-<h3 class="anchored" data-anchor-id="the-argument-prob-in-the-function-sample">The argument <code>prob</code> in the function <code>sample()</code></h3>
-<p>We have seen the function <code>sample()</code>, but so far, have only used it when we were sampling uniformly at random. That is, all the values are equally likely. We can sample according to a weighted probability, though, by putting in a vector of probabilities. Let’s look at the example of net gain while betting on red on a roulette spin. Recall that if we bet a dollar on red, then our net gain is <span class="math inline">\(+1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{18}{38}\)</span> and <span class="math inline">\(-1\)</span> with a probability of <span class="math inline">\(\displaystyle \frac{20}{38}\)</span>.</p>
+<section id="making-predictions-on-a-new-observation-with-predict" class="level3">
+<h3 class="anchored" data-anchor-id="making-predictions-on-a-new-observation-with-predict">Making predictions on a new observation with <code>predict()</code></h3>
+<p>We have spending a lot of time talking about how to fit a model meant for predicting, but have not actually done any predicting! The <code>predict()</code> function can help us do this. It takes in two main arguments:</p>
+<ul>
+<li><code>object</code>: This is the linear model object which contains the coefficients <span class="math inline">\(b_0\)</span>, …, <span class="math inline">\(b_p\)</span>. In the graduate and poverty example, this object was <code>m1</code>. We had <code>m1</code> through <code>m4</code> in the ZAGAT example.</li>
+<li><code>newdata</code>: This is a <em>data frame</em> containing the new observation(s). This data frame must at least contain each of the predictor variables used in the column, with a value of these variables for each observation.</li>
+</ul>
+<section id="example-zagat-food-rating" class="level4">
+<h4 class="anchored" data-anchor-id="example-zagat-food-rating">Example: ZAGAT food rating</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>) <span class="co"># define the gain for a single spin</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>prob_gain <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span><span class="sc">/</span><span class="dv">38</span>,<span class="dv">20</span><span class="sc">/</span><span class="dv">38</span>) <span class="co">#define the corresponding probabilities</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>exp_gain <span class="ot">&lt;-</span> <span class="fu">sum</span>(gain<span class="sc">*</span>prob_gain)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>exp_gain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.05263158</code></pre>
+<pre><code># A tibble: 168 × 6
+   restaurant          price  food decor service geo  
+   &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;
+ 1 Daniella Ristorante    43    22    18      20 west 
+ 2 Tello's Ristorante     32    20    19      19 west 
+ 3 Biricchino             34    21    13      18 west 
+ 4 Bottino                41    20    20      17 west 
+ 5 Da Umberto             54    24    19      21 west 
+ 6 Le Madri               52    22    22      21 west 
+ 7 Le Zie                 34    22    16      21 west 
+ 8 Pasticcio              34    20    18      21 east 
+ 9 Belluno                39    22    19      22 east 
+10 Cinque Terre           44    21    17      19 east 
+# ℹ 158 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate gain from 10 spins of the wheel</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> food <span class="sc">+</span> geo, <span class="at">data =</span> zagat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we will use <code>m2</code> from the ZAGAT example. This model used <span class="math inline">\(food\)</span> and <span class="math inline">\(geo\)</span> in an attempt to predict price at a restaurant.</p>
+<p>First, let’s make a new data frame with a couple of new, made-up observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>restaurants <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">food =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">17</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo =</span> <span class="fu">c</span>(<span class="st">"east"</span>, <span class="st">"west"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One of these restaurants is located in east Manhattan and has a food score of 25/30, while the other one is in west Manhattan and has a food score of 17/30.</p>
+<p>Now, we can use this data frame alongside our <code>m2</code> model object to make predictions for the prices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object =</span> m2, <span class="at">newdata =</span> restaurants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -1  1 -1  1  1 -1  1  1  1 -1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate net gain from 10 spins of the wheel which would sum these</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sample</span>(<span class="at">x =</span> gain, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> prob_gain, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
+<pre><code>       1        2 
+55.89738 31.44043 </code></pre>
 </div>
 </div>
-<p>Here is a simulation showing the Central Limit Theorem at work, with the empirical distribution becoming gradually more bell-shaped. Net gain is the sum of <span class="math inline">\(n\)</span> draws with replacement from the vector <code>gain</code> defined above using the <code>prob_gain</code> vector.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="tutorial_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<!-- We defined the expectation and variance of sums and averages of an iid sample of random variables, and introduced the term *standard error*. We recognized how the mean and variance scale with $n$ and defined the square root law for the standard error of the sum or mean of an iid sample. 
-
-We considered the probability distributions of sums and averages. 
-
-Finally, we introduced continuous distributions. In subsequent notes, we will introduce the most celebrated continuous distribution, the normal distribution. 
--->
+<p>We are predicted to have to pay roughly <span class="math inline">\(\$56\)</span> at the first restaurant and roughly <span class="math inline">\(\$31\)</span> at the second.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this lecture we learned how to evaluate and improve out predictions. While there are many metrics to measure the explanatory power of a model, one of the most commonly used is <span class="math inline">\(R^2\)</span>, the proportion of the variability of the <span class="math inline">\(y\)</span> that is explained by the model.</p>
+<p>To improve our predictions - and increase the <span class="math inline">\(R^2\)</span> - we saw three different strategies. If you have additional predictors in your data frame, its easy as pie to add them to your regression model and you are guaranteed to increase your <span class="math inline">\(R^2\)</span>.</p>
+<p>A second strategy is capture non-linear structure by creating new variables that are simple transformations of the existing variable. The third approach, also targeting non-linear structure, is to replace a single predictor with a polynomial.</p>
 
 
 <script type="ojs-module-contents">
@@ -515,7 +498,6 @@ eyJjb250ZW50cyI6W119
 W10=
 </script>
 </section>
-</section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
@@ -523,7 +505,7 @@ eyJjb250ZW50cyI6W119
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../3-generalization/06-normal-approx";
+window._ojs.paths.runtimeToDoc = "../../5-prediction/02-improving-predictions";
 window._ojs.paths.runtimeToRoot = "../..";
 window._ojs.paths.docToRoot = "../..";
 window._ojs.selfContained = false;
@@ -951,14 +933,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../3-generalization/04-random-variables/tutorial.html" class="pagination-link" aria-label="Random Variables">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Random Variables</span>
+      <a href="../../5-prediction/01-method-of-least-squares/tutorial.html" class="pagination-link" aria-label="The Method of Least Squares">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The Method of Least Squares</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../3-generalization/09-bootstrapping/tutorial.html" class="pagination-link" aria-label="Bootstrapping">
-        <span class="nav-page-text">Bootstrapping</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
