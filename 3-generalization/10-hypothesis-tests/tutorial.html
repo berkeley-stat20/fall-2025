@@ -329,6 +329,12 @@ window.Quarto = {
  <span class="menu-text">Overfitting</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../5-prediction/05-logistic-regression/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -445,16 +451,16 @@ Null Hypothesis: independence
 # A tibble: 500 × 2
    replicate    stat
        &lt;int&gt;   &lt;dbl&gt;
- 1         1   -7.98
- 2         2  173.  
- 3         3 -103.  
- 4         4   33.2 
- 5         5  -81.6 
- 6         6  -29.6 
- 7         7   61.7 
- 8         8  -12.2 
- 9         9  -85.2 
-10        10   64.1 
+ 1         1 -109.  
+ 2         2  -26.6 
+ 3         3 -225.  
+ 4         4    4.63
+ 5         5   16.0 
+ 6         6   -9.18
+ 7         7  -47.0 
+ 8         8   -7.98
+ 9         9   32.3 
+10        10 -140.  
 # ℹ 490 more rows</code></pre>
 </div>
 </div>
@@ -480,15 +486,15 @@ Null Hypothesis: independence
 # A tibble: 9 × 2
   replicate     stat
       &lt;int&gt;    &lt;dbl&gt;
-1         1   -6.48 
-2         2   13.0  
-3         3  -68.6  
-4         4   -0.173
-5         5  -93.3  
-6         6  -37.7  
-7         7 -183.   
-8         8   66.5  
-9         9  -74.1  </code></pre>
+1         1   58.4  
+2         2 -101.   
+3         3   -0.173
+4         4  -55.1  
+5         5  -56.3  
+6         6   61.1  
+7         7   56.9  
+8         8  -29.9  
+9         9 -101.   </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>null <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
